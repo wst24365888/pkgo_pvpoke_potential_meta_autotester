@@ -22,7 +22,7 @@ def autotest(begin, end):
 
     driver.get("https://pvpoketw.com/team-builder/")
 
-    time.sleep(3)
+    time.sleep(1.5)
 
     setting = driver.find_element_by_class_name("arrow-down")
     setting.click()
@@ -30,7 +30,7 @@ def autotest(begin, end):
     fill_team = Select(driver.find_element_by_class_name("quick-fill-select"))
     fill_team.select_by_index(1)
 
-    time.sleep(1)
+    time.sleep(0.5)
 
     firstTime = True
 
@@ -99,8 +99,8 @@ if __name__ == "__main__":
 
     threads = []
 
-    for i in range(15):
-        t = threading.Thread(target=autotest, args=(150*i, 150*(i+1),))
+    for i in range(5):
+        t = threading.Thread(target=autotest, args=(450*i, 450*(i+1),))
         t.start()
         threads.append(t)
 
