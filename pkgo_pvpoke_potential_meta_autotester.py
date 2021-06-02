@@ -17,6 +17,8 @@ scores = []
 
 def autotest(begin, end):
     chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_experimental_option(
+        "excludeSwitches", ["enable-logging"])
     chrome_options.add_argument('--headless')
     chrome_options.add_argument('--disable-gpu')
 
@@ -24,13 +26,13 @@ def autotest(begin, end):
 
     driver.get("https://pvpoketw.com/team-builder/")
 
-    time.sleep(2.5)
+    # time.sleep(2.5)
 
-    setting = driver.find_element_by_class_name("arrow-down")
-    setting.click()
+    # setting = driver.find_element_by_class_name("arrow-down")
+    # setting.click()
 
-    fill_team = Select(driver.find_element_by_class_name("quick-fill-select"))
-    fill_team.select_by_index(1)
+    # fill_team = Select(driver.find_element_by_class_name("quick-fill-select"))
+    # fill_team.select_by_index(1)
 
     time.sleep(2.5)
 
@@ -87,7 +89,7 @@ def autotest(begin, end):
         submit = None
 
         while submit is None:
-            try:                
+            try:
                 submit = WebDriverWait(driver, 20).until(
                     EC.element_to_be_clickable((By.CSS_SELECTOR, ".rate-btn")))
                 submit.click()
@@ -106,14 +108,16 @@ def autotest(begin, end):
                 scores.append({"name": name,
                                "score": int(score)})
 
+    driver.quit()
+
 
 if __name__ == "__main__":
     time_start = time.time()
 
     threads = []
 
-    for i in range(15):
-        t = threading.Thread(target=autotest, args=(150*i, 150*(i+1),))
+    for i in range(10):
+        t = threading.Thread(target=autotest, args=(210*i, 210*(i+1),))
         t.start()
         threads.append(t)
 
